@@ -1,71 +1,81 @@
-# Information Dynamics – Cuprate Superconducting Dome Fitting
+# Unified Information Dynamics of High‑Temperature Superconductivity
 
-This repository contains Python scripts that quantitatively fit the superconducting dome (transition temperature \(T_c\) vs. hole doping \(x\)) of cuprate high‑temperature superconductors using the **Information Dynamics** framework.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20140312.svg)](https://doi.org/10.5281/zenodo.20140312)
 
-## Key idea
+This repository contains the code, data, and LaTeX source for our paper:
 
-In Information Dynamics, the superconducting dome is described by a single parameter – the **information purity** \(p_{\mathrm{ID}}\).  
-The model assumes a parabolic doping dependence of \(p_{\mathrm{ID}}(x) = p_{\mathrm{max}} - A (x - x_{\mathrm{opt}})^2\) with \(p_{\mathrm{max}} = 0.97\) fixed from independent high‑energy experiments and strange‑metal Planckian dissipation.  
-The critical temperature then scales as  
+**"Unified Information Dynamics Description of Strongly Coupled Gapless States, d-wave Pairing, and the Superconducting Dome"**
 
-\[
-T_c(x) = s \cdot \frac{p_{\mathrm{ID}}(x)}{1 - p_{\mathrm{ID}}(x)},
-\]
+> We introduce a single parameter – the *information purity* `p` – that unifies three long‑standing puzzles of high‑temperature cuprate superconductors:
+> - dome‑shaped `T_c`,
+> - `d_{x^2-y^2}` pairing symmetry,
+> - strange metal Planckian dissipation.
 
-where \(s\) is a material‑dependent scale factor (effective mass, carrier density).  
+## 🔬 Scientific breakthrough – what this work achieves
 
-The script fits this relation to published experimental data for **LSCO** and **YBCO**, extracts the optimal doping \(x_{\mathrm{opt}}\), curvature \(A\), and scale factor \(s\), and generates the dome plot used in the accompanying paper.
+### 🧠 Microscopic insight: strongly coupled gapless states explained
+The strange metal and pseudogap – known as *strongly coupled gapless states* – are not separate anomalies. They are the macroscopic manifestation of a **critical coherent state** where the information purity `p` is slightly below its maximum (`0.97`). This reveals the hidden order behind their seemingly exotic behaviour.
 
-## Repository contents
+### 📊 Three macroscopic unifying results
+1. **One parameter for the dome** – `T_c = s * p/(1-p)` fits LSCO and YBCO with `R² > 0.95` using only three material parameters.
+2. **Planckian dissipation from geometry** – The linear‑in‑`T` resistivity coefficient `α = C(1-p)` with `C ≈ 31` derived purely from the Dirac‑cone geometry of the `d`-wave nodes (no free parameters).
+3. **Bridge to automatic control** – The theory is faithfully embedded into control theory: dome ↔ passivity, `d`-wave ↔ symmetry‑dominated mode, dissipation ↔ reachable set. This opens the door to engineering‑guided superconductor design.
 
-| File | Description |
-|------|-------------|
-| `fit_cuprate_dome.py` | Main script: loads data, defines model, performs least‑squares fits, prints parameters, and generates `dome_fit.pdf`. |
-| `dome_fit.pdf` | Example output plot (can be regenerated). |
-| `README.md` | This file. |
+## 📁 Repository contents
 
-## Requirements
+| File / Folder | Description |
+|---------------|-------------|
+| `fit_cuprate_dome.py` | Least‑squares fit of `T_c(x) = s * p/(1-p)` to LSCO and YBCO data – produces Table 1 and dome plot. |
+| `dome_validation.py` | Standard Ginzburg‑Landau simulation: shows that setting `ε(x) ∝ T_c(x)` reproduces the dome perfectly (Figure 2). |
+| `inversion_coupling_matrix.py` | Inverts the coupling matrix strength `δK(x)` from superfluid density data using linear response (Figure 4). |
 
-- Python 3.6+
-- `numpy`, `scipy`, `matplotlib`
+## 🚀 Getting started
 
-Install dependencies with:
+### Requirements
+- Python 3.7+
+- NumPy, SciPy, Matplotlib
 
+Install dependencies:
 ```bash
 pip install numpy scipy matplotlib
 ```
 
-## Usage
-
-Clone the repository and run the script:
-
+### Run the dome fit
 ```bash
-git clone https://github.com/hkaiopen/InformationDynamics_Cuprates.git
-cd InformationDynamics_Cuprates
 python fit_cuprate_dome.py
 ```
+This outputs the fit parameters (same as Table 1) and saves `dome_fit.pdf`.
 
-The script will print the fitted parameters to the console and save the figure as `dome_fit.pdf`.
-
-## Output example
-
+### Run the validation simulation
+```bash
+python dome_validation.py
 ```
-LSCO : s = 1.30, A = 4.87, x_opt = 0.157
-YBCO: s = 2.90, A = 3.97, x_opt = 0.165
+Generates `dome_validation.png` – shows perfect overlap between the GL simulation and the dome curve.
+
+### Run the coupling matrix inversion (synthetic data)
+```bash
+python inversion_coupling_matrix.py
+```
+Generates `inversion_coupling_matrix.png` – demonstrates recovery of `δK(x)` peak at the quantum critical point `x ≈ 0.19`.
+
+## 📖 How to use this code
+- **Reproduce our results:** Run the three scripts above; they require no additional input.
+- **Adapt to your own data:** Modify `fit_cuprate_dome.py` to load your own `T_c(x)` points. The same fitting model can be applied to other cuprate families or nickelates.
+
+## 📝 Citation
+If you use this code or the framework in your research, please cite our paper:
+
+> K. Huang, H. Liu, Z. Huang, *Unified Information Dynamics Description of Strongly Coupled Gapless States, d-wave Pairing, and the Superconducting Dome*, Zenodo (2026). DOI: [10.5281/zenodo.20139964](https://doi.org/10.5281/zenodo.20139964)
+
+BibTeX entry:
+```bibtex
+@misc{Huang2026InfoDynamics,
+  author       = {Kai Huang and Hongkui Liu and Ziwei Huang},
+  title        = {Unified Information Dynamics Description of Strongly Coupled Gapless States, d-wave Pairing, and the Superconducting Dome},
+  year         = {2026},
+  doi          = {10.5281/zenodo.20139964},
+  url          = {https://github.com/hkaiopen/InformationDynamics_Cuprates}
+}
 ```
 
-## Citation
-
-If you use this code or the results in your research, please cite the accompanying paper:
-
-> K. Huang, H. Liu, Z. Huang, F. Kuang, *Information Dynamics of High‑Temperature Superconductivity: Unifying Strange Metal, d‑Wave Pairing, and the Superconducting Dome*. Preprint: [Zenodo](https://doi.org/10.5281/zenodo.xxxxxx)
-
-## License
-
-This project is licensed under the CC‑BY‑NC‑SA 4.0 International License.  
-See the [LICENSE](LICENSE) file for details.
-
----
-
-*For questions or suggestions, please open an issue or contact the corresponding author.*
-```
+**Questions?** Open an issue or contact the authors.
