@@ -1,0 +1,14 @@
+============================================================
+Synthetic experimental data generated
+x range: 0.050 - 0.300
+True dK peak at x=0.190, amplitude=0.600
+Added Gaussian noise std=0.020
+============================================================
+
+Fitted Gaussian parameters for dK(x):
+  Amplitude = 0.6078
+  Center = 0.1898
+  Width = 0.0282
+
+Figure saved as inversion_coupling_matrix.png
+Done.

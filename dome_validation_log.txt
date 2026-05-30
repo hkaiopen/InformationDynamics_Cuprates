@@ -1,0 +1,22 @@
+============================================================
+Simplified Dome Simulation for Cuprate Superconductors
+============================================================
+Doping range: 0.050 - 0.300
+Optimal doping: 0.160
+Maximum purity: 0.970
+Curvature A: 5.00
+Scale factor s0: 30.0 K
+------------------------------------------------------------
+Computed phenomenological T_c(x) at optimal doping:
+  x = 0.162 -> T_c = 969.16 K
+------------------------------------------------------------
+Simulation: Set epsilon(x) = gamma * T_c(x) / const
+  -> rho_s(x) = epsilon(x)/gamma = T_c(x)/const
+Normalized rho_s(x) and T_c(x) should coincide.
+------------------------------------------------------------
+Maximum deviation between normalized curves: 0.00e+00
+Result: PERFECT AGREEMENT (curves are identical).
+============================================================
+
+Figure saved as: dome_validation.png
+Done.
