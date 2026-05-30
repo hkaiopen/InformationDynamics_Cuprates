@@ -1,0 +1,4 @@
+LSCO : s = 1.30, A = 4.87, x_opt = 0.157
+YBCO: s = 2.90, A = 3.97, x_opt = 0.165
+
+# parameters used in the paper (Table 1)
